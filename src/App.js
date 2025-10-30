@@ -13,7 +13,7 @@ import Service from './Component/Pages/Service';
 import Car from './Component/Pages/Car';
 import CarsDetails from './Component/Pages/CarDetails';
 import { useState } from "react";
-import Login from "./Component/Pages/Login";
+import Login from "./Component/Pages/Auth/Login";
 import Register from "./Component/Pages/Auth/Register";
 import {Toaster} from 'react-hot-toast';
 function App() {
