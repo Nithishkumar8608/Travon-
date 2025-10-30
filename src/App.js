@@ -14,12 +14,15 @@ import Car from './Component/Pages/Car';
 import CarsDetails from './Component/Pages/CarDetails';
 import { useState } from "react";
 import Login from "./Component/Pages/Login";
+import Register from "./Component/Pages/Auth/Register";
+import {Toaster} from 'react-hot-toast';
 function App() {
   const[showLogin,setShowLogin] = useState(false);
 
   return (
     <>
     <BrowserRouter>
+    <Toaster/>
     {showLogin && <Login setShowLogin={setShowLogin}/>}
 
     <Nav setShowLogin={setShowLogin}/>
