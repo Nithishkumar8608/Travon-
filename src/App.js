@@ -16,11 +16,20 @@ import { useState } from "react";
 import Login from "./Component/Pages/Auth/Login";
 import Register from "./Component/Pages/Auth/Register";
 import {Toaster} from 'react-hot-toast';
+import { useEffect } from "react";
+import Preloader from "./Component/Preloader/Preloader";
 function App() {
   const[showLogin,setShowLogin] = useState(false);
-
+// show preloader on first mount
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(t);
+  }, []);
   return (
     <>
+    {loading && <Preloader onFinish={() => setLoading(false)} duration={1500} />}
+
     <BrowserRouter>
     <Toaster/>
     {showLogin && <Login setShowLogin={setShowLogin}/>}
@@ -36,6 +45,7 @@ function App() {
     </Routes>
     <Footer/>
     </BrowserRouter>
+    
     </>
     
   );
