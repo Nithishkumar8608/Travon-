@@ -13,14 +13,15 @@ import Service from './Component/Pages/Service';
 import Car from './Component/Pages/Car';
 import CarsDetails from './Component/Pages/CarDetails';
 import { useState } from "react";
-import Login from "./Component/Pages/Auth/Login";
+
 import Register from "./Component/Pages/Auth/Register";
-import {Toaster} from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useEffect } from "react";
 import Preloader from "./Component/Preloader/Preloader";
+import Login from "./Component/Pages/Auth/Login";
 function App() {
-  const[showLogin,setShowLogin] = useState(false);
-// show preloader on first mount
+  //const[showLogin,setShowLogin] = useState(false);
+  // show preloader on first mount
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 1500);
@@ -28,26 +29,29 @@ function App() {
   }, []);
   return (
     <>
-    {loading && <Preloader onFinish={() => setLoading(false)} duration={1500} />}
+      {loading && <Preloader onFinish={() => setLoading(false)} duration={1500} />}
 
-    <BrowserRouter>
-    <Toaster/>
-    {showLogin && <Login setShowLogin={setShowLogin}/>}
+      <BrowserRouter>
+        <Toaster />
 
-    <Nav setShowLogin={setShowLogin}/>
-    <Routes>
-    <Route path='/'element={<Home/>}></Route>
-    <Route path='/about' element={<About/>}></Route>
-    <Route path='/contact' element={<Contact/>}></Route>
-    <Route path='/services' element={<Service/>}></Route>
-    <Route path='/cars' element={<Car/>}></Route>
-    <Route path='/car/:id' element={<CarsDetails />}></Route>
-    </Routes>
-    <Footer/>
-    </BrowserRouter>
-    
+
+        <Nav />
+        <Routes>
+          <Route path='/' element={<Home />}></Route>
+          <Route path='/about' element={<About />}></Route>
+          <Route path='/contact' element={<Contact />}></Route>
+          {/*Auth */}
+          <Route path="/login" element={<Login />}></Route>
+          <Route path='/register' element={<Register />}></Route>
+          <Route path='/services' element={<Service />}></Route>
+          <Route path='/cars' element={<Car />}></Route>
+          <Route path='/car/:id' element={<CarsDetails />}></Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+
     </>
-    
+
   );
 }
 

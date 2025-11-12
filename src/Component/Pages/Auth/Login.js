@@ -1,116 +1,136 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import AuthImage from '../../../assets/Porshce.gif';
 
-const Login = ({ setShowLogin }) => {
-  const [state, setState] = useState("login");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
+   
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
+    const navigation = useNavigate();
 
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        try {
+            if (!email || !password) {
+                return toast.error('All fields are required');
+            }
+            console.log('auth form data', + email + password );
+            
+            setEmail('');
+            setPassword('');
+            
+            toast.success('Login Successful');
+            navigation('/');
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  // Close on ESC key
-  useEffect(() => {
-    const handleEsc = (e) => e.key === "Escape" && setShowLogin(false);
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [setShowLogin]);
-
-  return (
-    <>
-      {/* Overlay Background */}
-      <div
-        onClick={() => setShowLogin(false)}
-        className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center"
-        style={{ zIndex: 1050 }}
-      >
-        {/* Modal Box */}
-        <form
-          onSubmit={onSubmitHandler}
-          onClick={(e) => e.stopPropagation()}
-          className="bg-white rounded-4 shadow-lg p-4 p-md-5"
-          style={{ width: "90%", maxWidth: "400px" }}
+    return (
+        <div
+            className="container-fluid min-vh-100 d-flex align-items-start justify-content-center px-3 py-5"
+            style={{
+                background: 'linear-gradient(135deg, #0d0d0d, #1a1a1a)',
+            }}
         >
-          <h4 className="text-center mb-4 fw-semibold">
-            <span className="text-primary">User</span>{" "}
-            {state === "login" ? "Login" : "Sign Up"}
-          </h4>
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="row w-100 shadow-lg rounded-4 overflow-hidden mt-5"
+                style={{
+                    maxWidth: '850px',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    backdropFilter: 'blur(8px)',
+                }}
+            >
+                {/* Left Side - GIF Section (Reduced Width) */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 1 }}
+                    className="col-12 col-md-5 p-0 d-flex align-items-center justify-content-center"
+                    style={{ backgroundColor: '#222' }}
+                >
+                    <motion.img
+                        src={AuthImage}
+                        alt="auth"
+                        className="img-fluid"
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',   // 🔹 changed from 'contain' to 'cover'
+                            maxHeight: 'none',    // 🔹 allow full container height
+                            opacity: 0.9,
+                        }}
+                        animate={{ scale: [1, 1.05, 1] }}   // 🔹 subtle zoom animation for liveliness
+                        transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
+                    />
 
-          {state === "register" && (
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Name</label>
-              <input
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                placeholder="Enter your name"
-                className="form-control"
-                type="text"
-                required
-              />
-            </div>
-          )}
+                </motion.div>
 
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Email</label>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              placeholder="Enter your email"
-              className="form-control"
-              type="email"
-              required
-            />
-          </div>
+                {/* Right Side - Form Section (Slightly Wider) */}
+                <motion.div
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
+                    className="col-12 col-md-7 text-white d-flex flex-column justify-content-start p-4 p-md-5"
+                    style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                        backdropFilter: 'blur(10px)',
+                    }}
+                >
+                    <h3 className="text-center mb-4 fw-bold text-warning mt-3">
+                        Login Form
+                    </h3>
 
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Password</label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder="Enter your password"
-              className="form-control"
-              type="password"
-              required
-            />
-          </div>
+                    <form onSubmit={handleSubmit} className="mt-4 mb-0">
+                       
 
-          {/* Toggle between Login / Register */}
-          {state === "register" ? (
-            <p className="text-center small mb-3">
-              Already have an account?{" "}
-              <span
-                onClick={() => setState("login")}
-                className="text-primary fw-medium"
-                style={{ cursor: "pointer" }}
-              >
-                Click here
-              </span>
-            </p>
-          ) : (
-            <p className="text-center small mb-3">
-              Don’t have an account?{" "}
-              <span
-                onClick={() => setState("register")}
-                className="text-primary fw-medium"
-                style={{ cursor: "pointer" }}
-              >
-                Click here
-              </span>
-            </p>
-          )}
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputEmail" className="form-label text-white">
+                                Email Address
+                            </label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="form-control bg-transparent text-white border-light"
+                                placeholder="Enter Email"
+                                id="exampleInputEmail"
+                            />
+                        </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="btn btn-primary w-100 fw-semibold py-2"
-          >
-            {state === "register" ? "Create Account" : "Login"}
-          </button>
-        </form>
-      </div>
-    </>
-  );
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputPassword" className="form-label text-white">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="form-control bg-transparent text-white border-light"
+                                placeholder="Enter Password"
+                                id="exampleInputPassword"
+                            />
+                        </div>
+
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            type="submit"
+                            className="btn btn-warning w-100 fw-bold mt-3 mb-0"
+                        >
+                           Login
+                        </motion.button>
+                    </form>
+                </motion.div>
+            </motion.div>
+        </div>
+    );
 };
 
-export default Login;
+export default Login;

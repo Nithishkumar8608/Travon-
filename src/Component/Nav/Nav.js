@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Login from "../Pages/Auth/Login";
+// import Login from "../Pages/Auth/Login";
 
 
 const Nav = () => {
-  const [showLogin, setShowLogin] = useState(false);
+  //const [showLogin, setShowLogin] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   // background color on scroll
@@ -17,9 +17,8 @@ const Nav = () => {
   return (
     <>
       <nav
-        className={`navbar navbar-expand-lg position-fixed w-100 top-0 ${
-          scrolled ? "bg-dark shadow-sm" : "bg-transparent"
-        }`}
+        className={`navbar navbar-expand-lg position-fixed w-100 top-0 ${scrolled ? "bg-dark shadow-sm" : "bg-transparent"
+          }`}
         style={{
           transition: "background-color 0.3s ease, box-shadow 0.3s ease",
           zIndex: 999,
@@ -84,11 +83,11 @@ const Nav = () => {
               {/* Mobile Login Button */}
               <li className="nav-item d-lg-none mt-3">
                 <button
-                  onClick={() => setShowLogin(true)}
+                  // onClick={() => setShowLogin(true)}
                   className="btn rounded nav-btn text-white"
                   style={{ backgroundColor: "#007bff" }}
-                >
-                  Login
+                ><Link to="/login" className="text-white text-decoration-none">
+                    Login</Link>
                 </button>
               </li>
             </ul>
@@ -110,19 +109,20 @@ const Nav = () => {
 
           {/* Desktop Login button */}
           <button
-            onClick={() => setShowLogin(true)}
+            //onClick={() => setShowLogin(true)}
             className="btn rounded nav-btn text-white ms-lg-3 d-none d-lg-inline-block"
             style={{ backgroundColor: "#007bff" }}
-          >
-            Login
+          ><Link to="/login" className="text-white text-decoration-none">
+              Login</Link>
+
           </button>
         </div>
       </nav>
 
       {/* Login modal */}
-      {showLogin && <Login setShowLogin={setShowLogin} />}
+      {/* {showLogin && <Login setShowLogin={setShowLogin} />} */}
     </>
   );
 };
 
-export default Nav;
+export default Nav;
