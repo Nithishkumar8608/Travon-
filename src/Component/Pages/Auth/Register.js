@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AuthImage from '../../../assets/Porshce.gif';
 
@@ -152,6 +152,10 @@ const Register = () => {
                         >
                             Register
                         </motion.button>
+                        <div className="mb-3">
+                             <h5>Already you have account?<Link to='/login'>Login </Link> </h5>
+                        </div>
+                       
                     </form>
                 </motion.div>
             </motion.div>
